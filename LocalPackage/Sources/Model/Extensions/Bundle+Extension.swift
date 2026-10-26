@@ -18,5 +18,6 @@ extension Bundle {
     }
 
     var bundleDisplayName: String { bundleString(key: "CFBundleDisplayName") }
+    var bundleShortVersion: String { bundleString(key: "CFBundleShortVersionString") }
     var bundleVersion: String { bundleString(key: "CFBundleVersion") }
 }

@@ -95,7 +95,8 @@ public final class DashboardMenu: Composable {
         case let .aboutButtonTapped(body):
             nsAppClient.activate(true)
             nsAppClient.orderFrontStandardAboutPanel([
-                NSApplication.AboutPanelOptionKey.credits: NSAttributedString(body)
+                NSApplication.AboutPanelOptionKey.credits: NSAttributedString(body),
+                NSApplication.AboutPanelOptionKey.version: Bundle.main.bundleShortVersion
             ])
 
         case .quitButtonTapped:
