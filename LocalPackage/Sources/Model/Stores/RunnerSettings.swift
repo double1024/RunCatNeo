@@ -30,6 +30,7 @@ public final class RunnerSettings: Composable {
 
     public var speedDecreasesUnderLoad: Bool
     public var isFlippedHorizontally: Bool
+    public var tintsBuiltInRunnerWithAccentColor: Bool
     public let customRunnerSettings: CustomRunnerSettings
     public let action: (Action) async -> Void
 
@@ -37,6 +38,7 @@ public final class RunnerSettings: Composable {
         _ appDependencies: AppDependencies,
         speedDecreasesUnderLoad: Bool? = nil,
         isFlippedHorizontally: Bool? = nil,
+        tintsBuiltInRunnerWithAccentColor: Bool? = nil,
         customRunnerSettings: CustomRunnerSettings? = nil,
         action: @escaping (Action) async -> Void = { _ in }
     ) {
@@ -46,6 +48,8 @@ public final class RunnerSettings: Composable {
         self.systemMetricsService = .init(appDependencies)
         self.speedDecreasesUnderLoad = speedDecreasesUnderLoad ?? userDefaultsRepository.speedDecreasesUnderLoad
         self.isFlippedHorizontally = isFlippedHorizontally ?? userDefaultsRepository.isFlippedHorizontally
+        self.tintsBuiltInRunnerWithAccentColor =
+            tintsBuiltInRunnerWithAccentColor ?? userDefaultsRepository.tintsBuiltInRunnerWithAccentColor
         weak var weakSelf: RunnerSettings? = nil
         self.customRunnerSettings = customRunnerSettings ??
             .init(appDependencies, action: { await weakSelf?.send(.customRunnerSettings($0)) })
@@ -69,6 +73,11 @@ public final class RunnerSettings: Composable {
             userDefaultsRepository.isFlippedHorizontally = isOn
             runnerService.resendCurrentRunnerBundle()
 
+        case let .tintBuiltInRunnerWithAccentColorToggleSwitched(isOn):
+            tintsBuiltInRunnerWithAccentColor = isOn
+            userDefaultsRepository.tintsBuiltInRunnerWithAccentColor = isOn
+            runnerService.resendCurrentRunnerBundle()
+
         case .customRunnerSettings:
             return
         }
@@ -78,6 +87,7 @@ public final class RunnerSettings: Composable {
         case viewAppeared(String)
         case slowDownUnderLoadToggleSwitched(Bool)
         case flipHorizontallyToggleSwitched(Bool)
+        case tintBuiltInRunnerWithAccentColorToggleSwitched(Bool)
         case customRunnerSettings(CustomRunnerSettings.Action)
     }
 }

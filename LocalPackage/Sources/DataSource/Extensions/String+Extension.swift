@@ -26,6 +26,7 @@ extension String {
     static let runnerID = "RUNNER_ID"
     static let speedDecreasesUnderLoad = "SPEED_DECREASES_UNDER_LOAD"
     static let systemMetricsConfiguration = "SYSTEM_METRICS_CONFIGURATION"
+    static let tintsBuiltInRunnerWithAccentColor = "TINTS_BUILT_IN_RUNNER_WITH_ACCENT_COLOR"
     static let updateInterval = "UPDATE_INTERVAL"
 
     public static let activityMonitor = "com.apple.ActivityMonitor"

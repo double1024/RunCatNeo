@@ -38,6 +38,11 @@ public struct UserDefaultsRepository: Sendable {
         nonmutating set { userDefaultsClient.set(newValue, .isFlippedHorizontally) }
     }
 
+    public var tintsBuiltInRunnerWithAccentColor: Bool {
+        get { userDefaultsClient.bool(.tintsBuiltInRunnerWithAccentColor) }
+        nonmutating set { userDefaultsClient.set(newValue, .tintsBuiltInRunnerWithAccentColor) }
+    }
+
     public var updateInterval: UpdateInterval {
         get { UpdateInterval(rawValue: userDefaultsClient.integer(.updateInterval)) ?? .default }
         nonmutating set { userDefaultsClient.set(newValue.rawValue, .updateInterval) }
@@ -108,6 +113,7 @@ public struct UserDefaultsRepository: Sendable {
             .runnerID: RunnerKind.cat.id,
             .speedDecreasesUnderLoad: false,
             .isFlippedHorizontally: false,
+            .tintsBuiltInRunnerWithAccentColor: false,
             .updateInterval: UpdateInterval.default.rawValue,
         ])
         if ProcessInfo.needsShowAllData {

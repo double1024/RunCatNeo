@@ -30,6 +30,8 @@ public final class RunnerBar: Composable {
 
     @ObservationIgnored private var eventBridge: Action.EventBridge?
     @ObservationIgnored private var tintColor = CGColor.black
+    @ObservationIgnored private var appearance: NSAppearance?
+    @ObservationIgnored private var isBuiltInRunner = false
     @ObservationIgnored private var task: Task<Void, Never>?
 
     public var icon: NSImage?
@@ -92,10 +94,8 @@ public final class RunnerBar: Composable {
     }
 
     private func update(appearance: NSAppearance) {
-        appearance.performAsCurrentDrawingAppearance {
-            tintColor = NSColor.textColor.cgColor
-        }
-        eventBridge?.setColor(tintColor, isTemplate)
+        self.appearance = appearance
+        updateTintColor()
     }
 
     private func update(runnerBundle: RunnerBundle) {
@@ -118,8 +118,13 @@ public final class RunnerBar: Composable {
         icon?.normalize()
         size = icon?.size ?? .zero
         eventBridge?.setSize(size)
+        if case .builtIn = runnerBundle.runner.source {
+            isBuiltInRunner = true
+        } else {
+            isBuiltInRunner = false
+        }
         isTemplate = runnerBundle.runner.isTemplate
-        eventBridge?.setColor(tintColor, isTemplate)
+        updateTintColor()
         let imageFrames = images.map { image in
             image.flip(enabled: isFlippedHorizontally)
             image.normalize()
@@ -131,6 +136,16 @@ public final class RunnerBar: Composable {
 
     private func update(runnerSpeed: Float) {
         eventBridge?.setSpeed(runnerSpeed)
+    }
+
+    private func updateTintColor() {
+        appearance?.performAsCurrentDrawingAppearance {
+            let usesAccentColor = userDefaultsRepository.tintsBuiltInRunnerWithAccentColor
+                && isBuiltInRunner
+                && isTemplate
+            tintColor = (usesAccentColor ? NSColor.controlAccentColor : NSColor.textColor).cgColor
+        }
+        eventBridge?.setColor(tintColor, isTemplate)
     }
 
     public enum Action: Sendable {
