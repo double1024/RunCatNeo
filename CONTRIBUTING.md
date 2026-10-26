@@ -1,7 +1,7 @@
-# Contributing to RunCat Neo
+# Contributing to RunCat4K
 
-Thank you for your interest in contributing to **RunCat Neo** 🐈  
-RunCat Neo is a macOS system monitoring application represented as a running cat animation.
+Thank you for your interest in contributing to **RunCat4K** 🐈
+RunCat4K is a macOS system monitoring application represented as a running cat animation.
 
 All kinds of contributions are welcome: bug reports, feature requests, and code contributions.
 
@@ -99,11 +99,11 @@ To suggest a new feature:
 
 ## Localization
 
-RunCat Neo ships translations that real users read every day, so localization is treated as its own contribution track with rules that differ from ordinary code contributions.
+RunCat4K ships translations that real users read every day, so localization is treated as its own contribution track with rules that differ from ordinary code contributions.
 
 ### Requesting a New Language
 
-If you want RunCat Neo to support a language it does not yet ship with, **open an issue** using the `Feature Request` template and state:
+If you want RunCat4K to support a language it does not yet ship with, **open an issue** using the `Feature Request` template and state:
 
 - the target language, and
 - your reason for the request (e.g. size of the audience, personal need).
@@ -235,5 +235,5 @@ Pull requests that violate these boundaries will need to be restructured before 
 
 ## Thank You
 
-Thank you again for contributing to **RunCat Neo**.
+Thank you again for contributing to **RunCat4K**.
 Your time and effort help make this project better for everyone 😸

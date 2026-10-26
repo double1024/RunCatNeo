@@ -1,15 +1,14 @@
-# RunCat Neo
+# RunCat4K
 
 A running cat in your macOS menu bar that reflects system load.
+Maintained by Ryan Channon.
 
 ## Installation
 
 - Requires macOS 26.3 or later.
-- [Download from the Mac App Store](https://apps.apple.com/us/app/runcat-neo/id6757801838)
-
 ## Custom Metrics
 
-RunCat Neo watches a local JSON file and displays its contents as a dashboard card. Add the file in **Settings → Metrics → Custom Metrics**. The app refreshes the card when the file changes.
+RunCat4K watches a local JSON file and displays its contents as a dashboard card. Add the file in **Settings → Metrics → Custom Metrics**. The app refreshes the card when the file changes.
 
 ### JSON 写法
 
@@ -48,7 +47,7 @@ JSON 文件顶层必须包含 `title`、`metrics` 和 `lastUpdatedDate`。`symbo
 
 请使用严格 JSON 格式（不支持注释和尾随逗号），并在写入时采用临时文件后原子替换，避免应用读取到不完整内容。更多字段说明和示例见 [Custom Metrics Schema](docs/CustomMetricsSchema.md)。
 
-RunCat Neo itself does not make outbound network connections. The app sandbox disables outgoing network access, and custom metric buttons reject common network URL schemes. A custom URL Scheme may launch another app; any network activity by that app is outside RunCat Neo's control.
+RunCat4K itself does not make outbound network connections. The app sandbox disables outgoing network access, and custom metric buttons reject common network URL schemes. A custom URL Scheme may launch another app; any network activity by that app is outside RunCat4K's control.
 
 ## Requirements
 

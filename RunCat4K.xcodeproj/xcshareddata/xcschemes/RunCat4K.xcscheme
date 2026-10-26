@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1C9FF5302F17E9A800362D48"
-               BuildableName = "RunCatNeo.app"
-               BlueprintName = "RunCatNeo"
-               ReferencedContainer = "container:RunCatNeo.xcodeproj">
+               BuildableName = "RunCat4K.app"
+               BlueprintName = "RunCat4K"
+               ReferencedContainer = "container:RunCat4K.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1C9FF5302F17E9A800362D48"
-            BuildableName = "RunCatNeo.app"
-            BlueprintName = "RunCatNeo"
-            ReferencedContainer = "container:RunCatNeo.xcodeproj">
+            BuildableName = "RunCat4K.app"
+            BlueprintName = "RunCat4K"
+            ReferencedContainer = "container:RunCat4K.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1C9FF5302F17E9A800362D48"
-            BuildableName = "RunCatNeo.app"
-            BlueprintName = "RunCatNeo"
-            ReferencedContainer = "container:RunCatNeo.xcodeproj">
+            BuildableName = "RunCat4K.app"
+            BlueprintName = "RunCat4K"
+            ReferencedContainer = "container:RunCat4K.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

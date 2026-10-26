@@ -1,52 +1,19 @@
 {
   "fill-specializations" : [
     {
-      "value" : {
-        "linear-gradient" : [
-          "srgb:0.41961,0.49804,0.49804,1.00000",
-          "srgb:0.11581,0.11835,0.23672,1.00000"
-        ]
-      }
+      "value" : "automatic"
     },
     {
       "appearance" : "dark",
-      "value" : {
-        "linear-gradient" : [
-          "srgb:0.41961,0.49804,0.49804,1.00000",
-          "srgb:0.11581,0.11835,0.23672,1.00000"
-        ]
-      }
+      "value" : "automatic"
     }
   ],
   "groups" : [
     {
       "layers" : [
         {
-          "blend-mode" : "normal",
-          "fill-specializations" : [
-            {
-              "value" : {
-                "automatic-gradient" : "extended-gray:1.00000,1.00000"
-              }
-            },
-            {
-              "appearance" : "dark",
-              "value" : {
-                "solid" : "extended-gray:1.00000,1.00000"
-              }
-            }
-          ],
-          "glass" : false,
-          "hidden" : false,
-          "image-name" : "cat.png",
-          "name" : "cat",
-          "position" : {
-            "scale" : 1.2,
-            "translation-in-points" : [
-              -595.390625,
-              179.828125
-            ]
-          }
+          "image-name" : "image_61c6f8d9.png",
+          "name" : "image_61c6f8d9"
         }
       ],
       "shadow" : {

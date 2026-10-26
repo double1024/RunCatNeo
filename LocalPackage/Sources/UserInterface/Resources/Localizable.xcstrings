@@ -452,7 +452,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Launch RunCat Neo automatically at login"
+            "value": "Launch RunCat4K automatically at login"
           }
         }
       }
@@ -596,7 +596,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "RunCat Neo is an open-source software."
+            "value": "RunCat4K is an open-source software."
           }
         }
       }
