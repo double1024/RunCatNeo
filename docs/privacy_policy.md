@@ -40,7 +40,5 @@ If you have any questions, comments, or other inquiries regarding this Privacy P
 :::footer
 [Privacy Policy](./privacy_policy.html) · [GitHub](https://github.com/runcat-dev/RunCatNeo) · [RunCat Developers](https://runcat-dev.github.io)
 
-**English** · [日本語](./privacy_policy.html?lang=ja)
-
 © 2026 Takuto Nakamura (Kyome22)
 :::

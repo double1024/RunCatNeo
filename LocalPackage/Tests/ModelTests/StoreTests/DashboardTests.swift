@@ -54,4 +54,38 @@ struct DashboardTests {
         try? await Task.sleep(for: .milliseconds(50))
         #expect(sut.customMetricsBundles.isEmpty)
     }
+
+    @MainActor @Test
+    func send_customMetricsButtonTapped_opensURL() async {
+        let openedURLs = AllocatedUnfairLock<[URL]>(initialState: [])
+        let sut = Dashboard(
+            .testDependencies(
+                nsWorkspaceClient: testDependency(of: NSWorkspaceClient.self) {
+                    $0.open = { url in
+                        openedURLs.withLock { $0.append(url) }
+                        return true
+                    }
+                }
+            )
+        )
+        await sut.send(.customMetricsButtonTapped("music-app://open"))
+        #expect(openedURLs.withLock(\.self) == [URL(string: "music-app://open")!])
+    }
+
+    @MainActor @Test
+    func send_customMetricsButtonTapped_rejectsNetworkURL() async {
+        let openedURLs = AllocatedUnfairLock<[URL]>(initialState: [])
+        let sut = Dashboard(
+            .testDependencies(
+                nsWorkspaceClient: testDependency(of: NSWorkspaceClient.self) {
+                    $0.open = { url in
+                        openedURLs.withLock { $0.append(url) }
+                        return true
+                    }
+                }
+            )
+        )
+        await sut.send(.customMetricsButtonTapped("https://example.com"))
+        #expect(openedURLs.withLock(\.self).isEmpty)
+    }
 }

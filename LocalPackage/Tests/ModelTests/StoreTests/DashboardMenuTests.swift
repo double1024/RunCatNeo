@@ -122,43 +122,6 @@ struct DashboardMenuTests {
     }
 
     @MainActor @Test
-    func send_openSourceLicenseButtonTapped() async {
-        let callStack = AllocatedUnfairLock<[String]>(initialState: [])
-        let sut = DashboardMenu(.testDependencies(
-            nsAppClient: testDependency(of: NSAppClient.self) {
-                $0.activate = { value in
-                    callStack.withLock { $0.append("activate: \(value)") }
-                }
-            }
-        ))
-        let openWindow = OpenWindowActionWrapper { id, value in
-            callStack.withLock { $0.append("openWindow: \(id), \(value)") }
-        }
-        await sut.send(.openSourceLicenseButtonTapped(openWindow))
-        #expect(callStack.withLock(\.self) == [
-            "activate: true",
-            "openWindow: OPEN_SOURCE_LICENSE, 0",
-        ])
-    }
-
-    @MainActor @Test
-    func send_reportIssueButtonTapped() async {
-        let callStack = AllocatedUnfairLock<[String]>(initialState: [])
-        let sut = DashboardMenu(.testDependencies(
-            nsWorkspaceClient: testDependency(of: NSWorkspaceClient.self) {
-                $0.open = { value in
-                    callStack.withLock { $0.append("open: \(value.absoluteString)") }
-                    return true
-                }
-            }
-        ))
-        await sut.send(.reportIssueButtonTapped)
-        #expect(callStack.withLock(\.self) == [
-            "open: https://github.com/runcat-dev/RunCatNeo/issues",
-        ])
-    }
-
-    @MainActor @Test
     func send_quitButtonTapped() async {
         let callStack = AllocatedUnfairLock<[String]>(initialState: [])
         let sut = DashboardMenu(.testDependencies(

@@ -96,8 +96,8 @@ Additionally, the [Runner Gallery](https://runcat-dev.github.io/RunnerGallery/) 
 
 ## FAQ
 
-:::details What languages does it support?
-RunCat Neo is available in ten languages: English, Japanese, Chinese (Simplified and Traditional), Korean, French, German, Spanish, Russian, and Vietnamese.
+:::details What language does it support?
+RunCat Neo currently supports English.
 :::
 
 :::details Is this the same as the original RunCat?
@@ -114,8 +114,6 @@ Runners are managed in the [Runner Gallery](https://runcat-dev.github.io/RunnerG
 
 :::footer
 [Privacy Policy](./privacy_policy.html) · [GitHub](https://github.com/runcat-dev/RunCatNeo) · [RunCat Developers](https://runcat-dev.github.io)
-
-**English** · [日本語](./?lang=ja)
 
 © 2026 Takuto Nakamura (Kyome22)
 :::

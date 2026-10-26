@@ -73,6 +73,26 @@ struct CustomMetricsSnapshotTests {
     }
 
     @Test
+    func decode_snapshot_with_buttons() throws {
+        let json = """
+            {
+              "title": "Music",
+              "metrics": [],
+              "buttons": [
+                { "title": "Open", "url": "music-app://open" },
+                { "title": "Close", "url": "music-app://quit" }
+              ],
+              "lastUpdatedDate": "2026-06-05T04:50:40Z"
+            }
+            """.data(using: .utf8)!
+        let snapshot = try decoder.decode(CustomMetricsSnapshot.self, from: json)
+        #expect(snapshot.buttons == [
+            CustomMetricButton(title: "Open", url: "music-app://open"),
+            CustomMetricButton(title: "Close", url: "music-app://quit"),
+        ])
+    }
+
+    @Test
     func decode_throws_when_title_missing() {
         let json = """
             {

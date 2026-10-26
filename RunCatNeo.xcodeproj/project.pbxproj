@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C0CC4252FAA2AC7006AA17B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C0CC4242FAA2AC7006AA17B /* StoreKit.framework */; };
 		1C0CC4382FAA37D9006AA17B /* UnitTest.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 1C0CC4372FAA37D9006AA17B /* UnitTest.xctestplan */; };
 		1C9FF54C2F17FBEE00362D48 /* UserInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9FF54B2F17FBEE00362D48 /* UserInterface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C0CC4242FAA2AC7006AA17B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1C0CC4372FAA37D9006AA17B /* UnitTest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTest.xctestplan; sourceTree = "<group>"; };
 		1C9FF5312F17E9A800362D48 /* RunCatNeo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunCatNeo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C9FF5492F17FBD000362D48 /* LocalPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPackage; sourceTree = "<group>"; };
@@ -45,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			files = (
 				1C9FF54C2F17FBEE00362D48 /* UserInterface in Frameworks */,
-				1C0CC4252FAA2AC7006AA17B /* StoreKit.framework in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -73,7 +70,6 @@
 		1C9FF54A2F17FBEE00362D48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1C0CC4242FAA2AC7006AA17B /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,15 +119,6 @@
 			knownRegions = (
 				en,
 				Base,
-				de,
-				es,
-				fr,
-				ja,
-				ko,
-				ru,
-				vi,
-				"zh-Hans",
-				"zh-Hant",
 			);
 			mainGroup = 1C9FF5282F17E9A800362D48;
 			minimizedProjectReferenceProxies = 1;
@@ -304,7 +291,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
@@ -354,7 +341,7 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
-				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
 				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;

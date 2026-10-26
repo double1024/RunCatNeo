@@ -23,10 +23,7 @@
     <div id="content"></div>
     <script type="module">
       import { loadMarkdown } from "https://hacknock.github.io/lobsterjs/lobster.js";
-      const language = new URLSearchParams(location.search).get("lang") === "ja" ? "ja" : "en";
-      document.documentElement.lang = language;
-      const source = language === "ja" ? "./content.ja.md" : "./content.md";
-      loadMarkdown(source, document.getElementById("content"));
+      loadMarkdown("./content.md", document.getElementById("content"));
     </script>
   </body>
 </html>

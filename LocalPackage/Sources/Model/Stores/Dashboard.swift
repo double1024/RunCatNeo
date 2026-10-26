@@ -5,17 +5,6 @@
  Created by Takuto Nakamura on 2026/05/08.
  Copyright 2026 Kyome22 (Takuto Nakamura)
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
  */
 
 import DataSource
@@ -28,8 +17,14 @@ public final class Dashboard: Composable {
     private let appStateClient: AppStateClient
     private let dateClient: DateClient
     private let logService: LogService
+    private let nsWorkspaceClient: NSWorkspaceClient
 
     @ObservationIgnored private var task: Task<Void, Never>?
+
+    private static let networkURLSchemes: Set<String> = [
+        "http", "https", "ftp", "ftps", "sftp", "ssh", "mailto", "news", "nntp", "irc", "ircs",
+        "itms", "itms-apps", "tel", "facetime", "webcal",
+    ]
 
     public var appName: String
     public var systemInfoBundle: SystemInfoBundle
@@ -56,6 +51,7 @@ public final class Dashboard: Composable {
         self.appStateClient = appDependencies.appStateClient
         self.dateClient = appDependencies.dateClient
         self.logService = .init(appDependencies)
+        self.nsWorkspaceClient = appDependencies.nsWorkspaceClient
         self.appName = appName ?? appStateClient.withLock(\.name)
         self.systemInfoBundle = systemInfoBundle
         self.cpuRingBuffer = cpuRingBuffer
@@ -92,6 +88,18 @@ public final class Dashboard: Composable {
 
         case .dashboardMenu:
             return
+
+        case let .customMetricsButtonTapped(urlString):
+            guard let url = URL(string: urlString),
+                  let scheme = url.scheme?.lowercased(),
+                  !Self.networkURLSchemes.contains(scheme) else {
+                logService.error(.openingCustomMetricsButtonFailed(reason: "Invalid URL or network URL scheme."))
+                return
+            }
+            guard nsWorkspaceClient.open(url) else {
+                logService.error(.openingCustomMetricsButtonFailed(reason: "NSWorkspace.open returned false."))
+                return
+            }
         }
     }
 
@@ -106,5 +114,6 @@ public final class Dashboard: Composable {
         case viewAppeared(String)
         case viewDisappeared
         case dashboardMenu(DashboardMenu.Action)
+        case customMetricsButtonTapped(String)
     }
 }

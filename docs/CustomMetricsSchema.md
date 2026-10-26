@@ -25,6 +25,10 @@ A valid file might look like this:
     { "title": "5h",      "formattedValue": "16.4%", "normalizedValue": 0.164 },
     { "title": "7d",      "formattedValue": "1.0%",  "normalizedValue": 0.01  }
   ],
+  "buttons": [
+    { "title": "Open app", "url": "example-app://open" },
+    { "title": "Quit app", "url": "example-app://quit" }
+  ],
   "lastUpdatedDate": "2026-06-05T04:50:40Z"
 }
 ```
@@ -39,6 +43,7 @@ The values above are illustrative — `title`, `symbol`, and the metric labels a
 | `symbol`          | string         | no       | [SF Symbol](https://developer.apple.com/sf-symbols/) identifier shown next to the title. Defaults to `chart.bar.horizontal.page.fill`. |
 | `metricsBarValue` | string         | no       | Short text shown in the Metrics Bar (the dedicated menu-bar item) next to the source's symbol. Displayed verbatim; keep it short — the bar caps the label width and truncates longer strings. Each source is hidden in the bar by default: click the Metrics Bar and flip the source's toggle to show it. When the source is shown but this field is omitted, the bar renders `---`. |
 | `metrics`         | array<Metric\> | yes      | Rows displayed inside the card. Empty array is allowed. |
+| `buttons`         | array<Button\> | no       | Buttons displayed below the metric rows. Each button opens its configured URL when clicked. |
 | `lastUpdatedDate` | string         | yes      | ISO 8601 timestamp (e.g. `"2026-06-05T04:50:40Z"`) of when the producer wrote this file. Shown as a relative time (`"3 min ago"`) at the bottom of the card; updates automatically. |
 
 ### Metric
@@ -49,12 +54,22 @@ The values above are illustrative — `title`, `symbol`, and the metric labels a
 | `formattedValue`  | string  | yes      | The completed display string. Include any units, currency symbols, or suffixes (e.g. `"5.4%"`, `"$3.21"`, `"42 days"`). |
 | `normalizedValue` | number  | no       | A value between 0 and 1. When present, a horizontal progress bar is drawn under the row. When omitted, only the `title: formattedValue` text is shown. |
 
+### Button
+
+| Field   | Type   | Required | Description |
+|---------|--------|----------|-------------|
+| `title` | string | yes      | Button label shown on the card. |
+| `url`   | string | yes      | Absolute URL opened by macOS when the button is clicked. Use a URL Scheme registered by the target app, for example `example-app://open`. |
+
+Opening a URL does not provide a generic way to control or quit another app. The target app must register and handle the relevant URL Scheme. A `quit` URL only works if that app explicitly implements it.
+
 ## Display rules
 
 - Producer-side formatting is intentional. RunCat does **not** apply units, percent signs, or rounding — whatever you put in `formattedValue` is shown verbatim.
 - `normalizedValue` is clamped to `[0, 1]` before the bar is drawn.
 - The bar is drawn in the accent color regardless of the value — it does not change color as the value grows. Encode any severity you want to convey in `formattedValue` itself.
 - If `metrics` is empty, the card shows only its title and the last-updated line.
+- If `buttons` is omitted or empty, no buttons are displayed.
 - `metricsBarValue` is rendered verbatim in the Metrics Bar with a monospaced digit font, prefixed by the source's `symbol`.
 
 ## Failure behavior

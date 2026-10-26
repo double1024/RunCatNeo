@@ -5,17 +5,6 @@
  Created by Takuto Nakamura on 2026/05/23.
  Copyright 2026 Kyome22 (Takuto Nakamura)
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
  */
 
 import DataSource
@@ -23,7 +12,6 @@ import Model
 import SwiftUI
 
 struct MenuView: View {
-    @Environment(\.openWindow) private var openWindow
     var store: DashboardMenu
 
     private var aboutBody: AttributedString {
@@ -32,12 +20,6 @@ struct MenuView: View {
         var ossParagraph = AttributedString(String(localized: "oss", bundle: .module) + "\n")
         ossParagraph.foregroundColor = NSColor.textColor
         attributedString.append(ossParagraph)
-
-        let url = URL.github
-        var urlParagraph = AttributedString(url.absoluteString)
-        urlParagraph.foregroundColor = NSColor.linkColor
-        urlParagraph.link = url
-        attributedString.append(urlParagraph)
 
         return attributedString
     }
@@ -95,30 +77,6 @@ struct MenuView: View {
                     Text("about\(store.appName)", bundle: .module)
                 } icon: {
                     Image(systemName: "info.circle")
-                }
-            }
-            Button {
-                Task {
-                    await store.send(.openSourceLicenseButtonTapped(.init(action: {
-                        openWindow(id: $0, value: $1)
-                    })))
-                }
-            } label: {
-                Label {
-                    Text("openSourceLicense", bundle: .module)
-                } icon: {
-                    Image(systemName: "building.columns")
-                }
-            }
-            Button {
-                Task {
-                    await store.send(.reportIssueButtonTapped)
-                }
-            } label: {
-                Label {
-                    Text("reportIssue", bundle: .module)
-                } icon: {
-                    Image(systemName: "envelope")
                 }
             }
             Button {
