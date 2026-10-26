@@ -13,7 +13,7 @@ import SwiftUI
 import SystemInfoKit
 
 struct MetricsBarView: View {
-    @StateObject var store: MetricsBar
+    @State var store: MetricsBar
 
     private var size: CGSize {
         var widthArray = [CGFloat]()
@@ -143,5 +143,3 @@ struct MetricsBarView: View {
         point.x += labelSize.width + IndicatorKind.spacer.size.width
     }
 }
-
-extension MetricsBar: ObservableObject {}

@@ -20,7 +20,7 @@ import SwiftUI
 // erases it again via sourceOutCompositing, so the two never overlap. That filter does not work on
 // Intel Macs, where `backgroundLayer` is therefore not installed and the gap stays empty.
 struct RunnerBarView: View {
-    @StateObject var store: RunnerBar
+    @State var store: RunnerBar
 
     private var iconImage: NSImage {
 #if arch(arm64)
@@ -79,5 +79,3 @@ struct RunnerBarView: View {
         }
     }
 }
-
-extension RunnerBar: ObservableObject {}

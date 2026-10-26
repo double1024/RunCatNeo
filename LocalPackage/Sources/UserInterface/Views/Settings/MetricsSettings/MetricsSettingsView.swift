@@ -11,7 +11,7 @@ import Model
 import SwiftUI
 
 struct MetricsSettingsView: View {
-    @StateObject var store: MetricsSettings
+    @State var store: MetricsSettings
 
     var body: some View {
         Form {
@@ -69,5 +69,3 @@ struct MetricsSettingsView: View {
         }
     }
 }
-
-extension MetricsSettings: ObservableObject {}

@@ -26,25 +26,25 @@ struct SystemInfoStackView: View {
                 }
             }
             if let memoryInfo = systemInfoBundle.memoryInfo {
-                Divider()
+                DashedDivider()
                 SystemInfoView(systemInfo: memoryInfo) {
                     LineGraphView(values: (isPreview ? RingBuffer.mock : memoryRingBuffer).values)
                 }
             }
             if let storageInfo = systemInfoBundle.storageInfo {
-                Divider()
+                DashedDivider()
                 SystemInfoView(systemInfo: storageInfo) {
                     BarGraphView(value: storageInfo.percentage.value)
                 }
             }
             if let batteryInfo = systemInfoBundle.batteryInfo?.simulated(isPreview) {
-                Divider()
+                DashedDivider()
                 SystemInfoView(systemInfo: batteryInfo, isVisibleDetails: batteryInfo.isInstalled) {
                     EmptyView()
                 }
             }
             if let networkInfo = systemInfoBundle.networkInfo?.masked(isPreview) {
-                Divider()
+                DashedDivider()
                 SystemInfoView(systemInfo: networkInfo) {
                     EmptyView()
                 }
@@ -52,6 +52,22 @@ struct SystemInfoStackView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(8)
-        .materialCellStyle()
+    }
+}
+
+private struct DashedDivider: View {
+    var body: some View {
+        Canvas { context, size in
+            var path = Path()
+            path.move(to: CGPoint(x: .zero, y: size.height / 2))
+            path.addLine(to: CGPoint(x: size.width, y: size.height / 2))
+            context.stroke(
+                path,
+                with: .foreground,
+                style: StrokeStyle(lineWidth: 1, lineCap: .round, dash: [1, 3])
+            )
+        }
+        .foregroundStyle(.quaternary)
+        .frame(height: 1)
     }
 }

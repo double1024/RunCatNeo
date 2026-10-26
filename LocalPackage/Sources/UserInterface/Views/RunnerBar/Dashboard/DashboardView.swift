@@ -11,7 +11,7 @@ import Model
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject var store: Dashboard
+    @State var store: Dashboard
 
     var body: some View {
         VStack(spacing: 8) {
@@ -42,6 +42,7 @@ struct DashboardView: View {
         }
         .fixedSize()
         .padding(8)
+        .glassEffect(.regular, in: .rect(cornerRadius: 12))
         .task {
             await store.send(.viewAppeared(String(describing: Self.self)))
         }
@@ -52,5 +53,3 @@ struct DashboardView: View {
         }
     }
 }
-
-extension Dashboard: ObservableObject {}

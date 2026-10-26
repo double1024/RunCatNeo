@@ -12,7 +12,7 @@ import Model
 import SwiftUI
 
 struct GeneralSettingsView: View {
-    @StateObject var store: GeneralSettings
+    @State var store: GeneralSettings
 
     var body: some View {
         Form {
@@ -48,5 +48,3 @@ struct GeneralSettingsView: View {
         }
     }
 }
-
-extension GeneralSettings: ObservableObject {}

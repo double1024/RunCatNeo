@@ -11,7 +11,7 @@ import Model
 import SwiftUI
 
 struct RunnerSettingsView: View {
-    @StateObject var store: RunnerSettings
+    @State var store: RunnerSettings
 
     var body: some View {
         Form {
@@ -45,5 +45,3 @@ struct RunnerSettingsView: View {
         }
     }
 }
-
-extension RunnerSettings: ObservableObject {}
