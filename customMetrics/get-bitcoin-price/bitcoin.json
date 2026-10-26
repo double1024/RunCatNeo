@@ -1,0 +1,9 @@
+{
+  "title": "Bitcoin",
+  "symbol": "bitcoinsign",
+  "metricsBarValue": "$80.0K",
+  "metrics": [
+    { "title": "Current", "formattedValue": "$79963.00" }
+  ],
+  "lastUpdatedDate": "2026-10-26T14:21:17Z"
+}

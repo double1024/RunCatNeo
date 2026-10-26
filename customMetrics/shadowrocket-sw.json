@@ -1,0 +1,18 @@
+{
+  "title": "Shadowrocket",
+  "symbol": "paperplane.fill",
+  "metricsBarValue": "代理控制",
+  "metrics": [
+    {
+      "title": " ",
+     "formattedValue": "                     :"
+    }
+  ],
+  "buttons": [
+    {
+      "title": "切换地狱",
+      "url": "shadowrocket://toggle?autoclose=true"
+    }
+  ],
+  "lastUpdatedDate": "2026-10-26T06:00:00Z"
+}
