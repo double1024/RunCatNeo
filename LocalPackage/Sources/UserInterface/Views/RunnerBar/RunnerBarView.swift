@@ -21,8 +21,10 @@ import SwiftUI
 // Intel Macs, where `backgroundLayer` is therefore not installed and the gap stays empty.
 struct RunnerBarView: View {
     @State var store: RunnerBar
+    @State var menuStore: DashboardMenu
     @Environment(\.openSettings) private var openSettings
     @State private var rightClickMonitor: Any?
+    @State private var contextMenu: RunnerBarContextMenu?
 
     private var iconImage: NSImage {
 #if arch(arm64)
@@ -51,7 +53,8 @@ struct RunnerBarView: View {
                   let window = statusBarButton.window else {
                 return
             }
-            installRightClickHandler(for: statusBarButton)
+            let contextMenu = RunnerBarContextMenu(store: menuStore, openSettings: { openSettings() })
+            self.contextMenu = contextMenu
             statusBarButton.tag = .zero
             let gap = 0.5 * statusBarButton.bounds.width
             statusBarButton.wantsLayer = true
@@ -72,6 +75,10 @@ struct RunnerBarView: View {
                     setSpeed: { runnerLayer.setSpeed($0) }
                 )
             ))
+            installRightClickHandler(for: statusBarButton, contextMenu: contextMenu)
+            Task {
+                await menuStore.send(.viewAppeared)
+            }
         }
         // This will not be called within the MenuBarExtra lifecycle,
         // but I am including it here for the sake of formality.
@@ -80,13 +87,18 @@ struct RunnerBarView: View {
                 NSEvent.removeMonitor(rightClickMonitor)
                 self.rightClickMonitor = nil
             }
+            contextMenu = nil
             Task {
+                await menuStore.send(.viewDisappeared)
                 await store.send(.viewDisappeared)
             }
         }
     }
 
-    private func installRightClickHandler(for statusBarButton: NSStatusBarButton) {
+    private func installRightClickHandler(
+        for statusBarButton: NSStatusBarButton,
+        contextMenu: RunnerBarContextMenu
+    ) {
         guard rightClickMonitor == nil else { return }
         rightClickMonitor = NSEvent.addLocalMonitorForEvents(matching: .rightMouseDown) { [weak statusBarButton] event in
             guard let statusBarButton,
@@ -94,7 +106,7 @@ struct RunnerBarView: View {
                   statusBarButton.bounds.contains(statusBarButton.convert(event.locationInWindow, from: nil)) else {
                 return event
             }
-            openSettings()
+            NSMenu.popUpContextMenu(contextMenu.makeMenu(), with: event, for: statusBarButton)
             return nil
         }
     }

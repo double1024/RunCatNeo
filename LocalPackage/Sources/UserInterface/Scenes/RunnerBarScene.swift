@@ -19,7 +19,10 @@ public struct RunnerBarScene: Scene {
         MenuBarExtra {
             DashboardView(store: .init(appDependencies))
         } label: {
-            RunnerBarView(store: .init(appDependencies))
+            RunnerBarView(
+                store: .init(appDependencies),
+                menuStore: .init(appDependencies)
+            )
         }
         .menuBarExtraStyle(.window)
     }
