@@ -25,7 +25,7 @@ struct MenuView: View {
     }
 
     var body: some View {
-        Menu {
+        Group {
             Picker(selection: Binding<Runner?>(
                 get: { store.currentRunner },
                 asyncSet: { await store.send(.runnerKindPickerSelected($0)) }
@@ -116,16 +116,7 @@ struct MenuView: View {
                     }
                 }
             }
-        } label: {
-            Label {
-                Text("menu", bundle: .module)
-            } icon: {
-                Image(systemName: "list.bullet")
-            }
-            .labelStyle(.iconOnly)
         }
-        .menuStyle(.borderlessButton)
-        .menuIndicator(.hidden)
         .task {
             await store.send(.viewAppeared)
         }

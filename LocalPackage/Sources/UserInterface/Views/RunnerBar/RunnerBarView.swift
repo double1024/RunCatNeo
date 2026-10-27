@@ -21,6 +21,8 @@ import SwiftUI
 // Intel Macs, where `backgroundLayer` is therefore not installed and the gap stays empty.
 struct RunnerBarView: View {
     @State var store: RunnerBar
+    @Environment(\.openSettings) private var openSettings
+    @State private var rightClickMonitor: Any?
 
     private var iconImage: NSImage {
 #if arch(arm64)
@@ -49,6 +51,7 @@ struct RunnerBarView: View {
                   let window = statusBarButton.window else {
                 return
             }
+            installRightClickHandler(for: statusBarButton)
             statusBarButton.tag = .zero
             let gap = 0.5 * statusBarButton.bounds.width
             statusBarButton.wantsLayer = true
@@ -73,9 +76,26 @@ struct RunnerBarView: View {
         // This will not be called within the MenuBarExtra lifecycle,
         // but I am including it here for the sake of formality.
         .onDisappear {
+            if let rightClickMonitor {
+                NSEvent.removeMonitor(rightClickMonitor)
+                self.rightClickMonitor = nil
+            }
             Task {
                 await store.send(.viewDisappeared)
             }
+        }
+    }
+
+    private func installRightClickHandler(for statusBarButton: NSStatusBarButton) {
+        guard rightClickMonitor == nil else { return }
+        rightClickMonitor = NSEvent.addLocalMonitorForEvents(matching: .rightMouseDown) { [weak statusBarButton] event in
+            guard let statusBarButton,
+                  event.window === statusBarButton.window,
+                  statusBarButton.bounds.contains(statusBarButton.convert(event.locationInWindow, from: nil)) else {
+                return event
+            }
+            openSettings()
+            return nil
         }
     }
 }

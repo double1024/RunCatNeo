@@ -27,7 +27,7 @@ enum IndicatorKind {
         case .usageFullLabel:
             CGSize(width: 40.0, height: 16.0)
         case .usageHalfLabel:
-            CGSize(width: 46.0, height: 8.0)
+            CGSize(width: 58.0, height: 18.0)
         }
     }
 

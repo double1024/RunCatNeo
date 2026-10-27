@@ -89,7 +89,11 @@ struct MetricsBarView: View {
         systemInfo: any SystemInfo
     ) {
         let iconSize = IndicatorKind.categoryIcon.size
-        context.drawIcon(systemName: systemInfo.icon, point: point, size: iconSize)
+        let iconName = switch systemInfo {
+        case is NetworkInfo: "arrow.up.arrow.down"
+        default: systemInfo.icon
+        }
+        context.drawIcon(systemName: iconName, point: point, size: iconSize)
         point.x += iconSize.width
 
         switch systemInfo {
@@ -110,14 +114,14 @@ struct MetricsBarView: View {
 
         case let networkInfo as NetworkInfo:
             let labelSize = IndicatorKind.usageHalfLabel.size
-            context.drawBlackText(origin: CGPoint(x: point.x, y: 1), size: labelSize) {
-                Text(verbatim: "\u{2B06}\(networkInfo.upload.menuBarDescription(type: .network))")
-                    .font(.system(size: 7))
+            context.drawBlackText(origin: CGPoint(x: point.x, y: 0), size: labelSize) {
+                Text(verbatim: networkInfo.upload.menuBarDescription(type: .network))
+                    .font(.system(size: 9))
                     .monospaced()
             }
             context.drawBlackText(origin: CGPoint(x: point.x, y: 9), size: labelSize) {
-                Text(verbatim: "\u{2B07}\(networkInfo.download.menuBarDescription(type: .network))")
-                    .font(.system(size: 7))
+                Text(verbatim: networkInfo.download.menuBarDescription(type: .network))
+                    .font(.system(size: 9))
                     .monospaced()
             }
             point.x += labelSize.width + IndicatorKind.spacer.size.width

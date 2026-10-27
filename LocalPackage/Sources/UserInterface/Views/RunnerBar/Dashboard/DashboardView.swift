@@ -15,17 +15,8 @@ struct DashboardView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            HStack {
-                Text(store.appName)
-                    .foregroundStyle(.secondary)
-                    .padding(.leading, 8)
-                Spacer()
-                MenuView(store: store.dashboardMenu)
-            }
             SystemInfoStackView(
                 systemInfoBundle: store.systemInfoBundle,
-                cpuRingBuffer: store.cpuRingBuffer,
-                memoryRingBuffer: store.memoryRingBuffer,
                 isPreview: store.isPreview
             )
             ForEach(store.customMetricsBundles) { customMetricsBundle in

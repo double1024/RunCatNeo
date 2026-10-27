@@ -37,42 +37,37 @@ struct CustomMetricsCardView: View {
     }
 
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
+        HStack(alignment: .top, spacing: 12) {
             Image(systemName: snapshot.displaySymbol)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-            VStack(alignment: .leading, spacing: 2) {
+                .font(.system(size: 18, weight: .regular))
+                .foregroundStyle(.secondary)
+                .frame(width: 24, height: 22)
+            VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: snapshot.title)
-                Group {
-                    ForEach(snapshot.metrics.enumerated(), id: \.offset) { _, metric in
-                        Text(verbatim: "\(metric.title): \(metric.formattedValue)")
-                            .font(.caption)
-                        if let normalizedValue = metric.normalizedValue {
-                            BarGraphView(value: max(0, min(1, normalizedValue)) * 100)
-                        }
-                    }
-                    if let buttons = snapshot.buttons, !buttons.isEmpty {
-                        HStack {
-                            ForEach(buttons.enumerated(), id: \.offset) { _, button in
-                                Button {
-                                    onButtonTap(button)
-                                } label: {
-                                    Text(verbatim: button.title)
-                                }
+                    .font(.system(.body, weight: .semibold))
+                ForEach(snapshot.metrics.enumerated(), id: \.offset) { _, metric in
+                    Text(verbatim: "\(metric.title): \(metric.formattedValue)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                if let buttons = snapshot.buttons, !buttons.isEmpty {
+                    HStack {
+                        ForEach(buttons.enumerated(), id: \.offset) { _, button in
+                            Button {
+                                onButtonTap(button)
+                            } label: {
+                                Text(verbatim: button.title)
                             }
                         }
                     }
-                    Text("lastUpdated:\(lastUpdatedDetail)", bundle: .module)
-                        .font(.caption)
-                        .foregroundStyle(isFailed ? Color.red : Color.secondary)
                 }
-                .padding(.leading, 12)
+                Text("lastUpdated:\(lastUpdatedDetail)", bundle: .module)
+                    .font(.caption)
+                    .foregroundStyle(isFailed ? Color.red : Color.secondary)
             }
         }
         .fixedSize()
-        .padding(.leading, 8)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
+        .padding(.horizontal, 8)
     }
 }

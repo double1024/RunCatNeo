@@ -10,32 +10,30 @@
 import SwiftUI
 import SystemInfoKit
 
-struct SystemInfoView<Accessory: View>: View {
+struct SystemInfoView: View {
     var systemInfo: any SystemInfo
+    var iconName: String? = nil
     var isVisibleDetails = true
-    @ViewBuilder var accessory: () -> Accessory
+    var detailStrings: [String]? = nil
 
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            Image(systemName: systemInfo.icon)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-            VStack(alignment: .leading, spacing: 2) {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: iconName ?? systemInfo.icon)
+                .font(.system(size: 18, weight: .regular))
+                .foregroundStyle(.secondary)
+                .frame(width: 24, height: 22)
+            VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: systemInfo.summary)
-                Group {
-                    if isVisibleDetails {
-                        ForEach(systemInfo.details.indices, id: \.self) { index in
-                            Text(verbatim: systemInfo.details[index])
-                                .font(.caption)
-                        }
+                    .font(.system(.body, weight: .semibold))
+                if isVisibleDetails {
+                    ForEach(Array((detailStrings ?? systemInfo.details).enumerated()), id: \.offset) { _, detail in
+                        Text(verbatim: detail)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
-                    accessory()
                 }
-                .padding(.leading, 12)
             }
         }
         .fixedSize()
-        .padding(.leading, 8)
     }
 }
